@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IAboutPage } from '../../core/interfaces/aboutPage.interface';
 
 @Component({
   selector: 'app-about',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './about.css'
 })
 export class About {
+aboutPageData!:IAboutPage;
+
 
 }
