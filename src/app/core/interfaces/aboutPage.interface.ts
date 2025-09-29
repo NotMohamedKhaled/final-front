@@ -7,6 +7,7 @@ export interface IEducation {
     school: String,
     degree: String,
     year: String,
+    location: String,
     paragraph: String
 
 }export interface ISkill {

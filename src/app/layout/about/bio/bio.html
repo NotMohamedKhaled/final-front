@@ -1,0 +1,21 @@
+<section class="container py-5">
+    <div class="row align-items-center">
+        <!-- Left Column: Text -->
+        <div class="col-md-6">
+            <h2 class="fw-bold text-primary">{{bioData.title}}</h2>
+            <p class="lead">
+                {{bioData.paragraph}}
+            </p>
+            <!-- <a routerLink="/contact" class="btn btn-primary btn-lg mt-3">Get in Touch</a> -->
+        </div>
+
+        <!-- Right Column: Image/Icon -->
+        <div class="col-md-6 text-center">
+            <!-- If using Bootstrap Icon -->
+            <!-- <i class="bi bi-collection text-primary" style="font-size: 12rem;"></i> -->
+
+            <!-- Or if using an image -->
+            <img [src]="'http://localhost:3000'+ bioData.imgUrl" class="img-fluid w-100" alt="About Hero">
+        </div>
+    </div>
+</section>
