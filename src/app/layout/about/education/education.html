@@ -1,22 +1,21 @@
-@for(myEdu of educationData; track $index){
     <div class="card shadow border-0 rounded-4 mb-5">
                     <div class="card-body p-5">
                         <div class="row align-items-center gx-5">
                             <div class="col text-center text-lg-start mb-4 mb-lg-0">
                                 <div class="bg-light p-4 rounded-4">
-                                    <div class="text-secondary fw-bolder mb-2">{{myEdu.year}}</div>
+                                    <div class="text-secondary fw-bolder mb-2">{{educationData.year}}</div>
                                     <div class="mb-2">
-                                        <div class="small fw-bolder">{{myEdu.school}}</div>
-                                        <div class="small text-muted">{{myEdu.location}}</div>
+                                        <div class="small fw-bolder">{{educationData.school}}</div>
+                                        <div class="small text-muted">{{educationData.location}}</div>
                                     </div>
                                     <div class="fst-italic">
                                         <!-- <div class="small text-muted">Master's</div> -->
-                                        <div class="small text-muted">{{myEdu.degree}}</div>
+                                        <div class="small text-muted">{{educationData.degree}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8"><div>{{myEdu.paragraph}}</div></div>
+                            <div class="col-lg-8"><div>{{educationData.paragraph}}</div></div>
                         </div>
                     </div>
                 </div>
-}
+

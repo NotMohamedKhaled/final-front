@@ -1,0 +1,56 @@
+
+<div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Add / Edit Service</h5>
+      <form [formGroup]="serviceForm" (ngSubmit)="addOrUpdate()" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Name</label>
+          <input class="form-control" formControlName="name" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Image URL</label>
+          <input class="form-control" formControlName="imgUrl" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Description</label>
+          <input class="form-control" formControlName="desc" />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit" [disabled]="serviceForm.invalid">{{ editingIndex!==null ? 'Update' : 'Add' }}</button>
+          <button *ngIf="editingIndex!==null" class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Services</h5>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of services; let i = index">
+              <td><img [src]="s.imgUrl" [alt]="s.name" style="width:42px;height:42px;"/></td>
+              <td>{{ s.name }}</td>
+              <td class="text-muted">{{ s.desc }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="edit(i)">Edit</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="delete(i)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  

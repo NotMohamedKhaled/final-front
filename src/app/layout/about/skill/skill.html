@@ -1,1 +1,13 @@
-<p>skill works!</p>
+<div class="col">
+    <div class="card h-100 border-0 shadow-sm skill-card">
+        <div class="card-body d-flex align-items-center p-4">
+            <div class="me-3">
+                <img [src]='"http://localhost:3000" + mySkill.iconUrl' alt="HTML" class="img-fluid" style="width: 40px; height: 40px;">
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="card-title mb-1 fw-bold">{{mySkill.name}}</h5>
+                <p class="card-text text-muted small mb-0">{{mySkill.level}}</p>
+            </div>
+        </div>
+    </div>
+</div>

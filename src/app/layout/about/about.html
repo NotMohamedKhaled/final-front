@@ -8,39 +8,19 @@
             <section>
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h2 class="text-primary fw-bolder mb-0">Bio</h2>
-                    <!-- Download resume button-->
-                    <!-- Note: Set the link href target to a PDF file within your project-->
-                    <!-- <a class="btn btn-primary px-4 py-3" href="#!">
-                        <div class="d-inline-block bi bi-download me-2"></div>
-                        Download Resume
-                    </a> -->
                 </div>
-                <!-- Experience Card 1-->
-                 
-                <app-bio [bioData]="aboutPageData.bio"></app-bio>
+                    <!--  bioooooooooo -->
+                 <app-bio [bioData]="aboutPageData.bio"></app-bio>
                   
-                <!-- Experience Card 2-->
-                <!-- <div class="card shadow border-0 rounded-4 mb-5">
-                    <div class="card-body p-5">
-                        <div class="row align-items-center gx-5">
-                            <div class="col text-center text-lg-start mb-4 mb-lg-0">
-                                <div class="bg-light p-4 rounded-4">
-                                    <div class="text-primary fw-bolder mb-2">2017 - 2019</div>
-                                    <div class="small fw-bolder">SEM Specialist</div>
-                                    <div class="small text-muted">Wayne Enterprises</div>
-                                    <div class="small text-muted">Gotham City, NY</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8"><div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus laudantium, voluptatem quis repellendus eaque sit animi illo ipsam amet officiis corporis sed aliquam non voluptate corrupti excepturi maxime porro fuga.</div></div>
-                        </div>
-                    </div>
-                </div> -->
+
             </section>
             <!-- Education Section-->
             <section>
                 <h2 class="text-secondary fw-bolder mb-4">Education</h2>
-                <!-- Education Card 1-->
-                 <app-education [educationData]="aboutPageData.education"></app-education>
+                @for(education of aboutPageData.education; track $index){
+
+                    <app-education [educationData]="education"></app-education>
+                }
             </section>
             <!-- Divider-->
             <div class="pb-5"></div>
@@ -58,95 +38,10 @@
                             
                             <!-- Skills Grid - 2 columns on medium+ screens, 1 column on small screens -->
                             <div class="row row-cols-1 row-cols-md-2 g-4">
-                                <!-- HTML Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="favicon.ico" alt="HTML" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">HTML</h5>
-                                                <p class="card-text text-muted small mb-0">Advanced</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- CSS Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="assets/images/css-icon.png" alt="CSS" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">CSS</h5>
-                                                <p class="card-text text-muted small mb-0">Advanced</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- JavaScript Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="assets/images/js-icon.png" alt="JavaScript" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">JavaScript</h5>
-                                                <p class="card-text text-muted small mb-0">Expert</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Angular Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="assets/images/angular-icon.png" alt="Angular" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">Angular</h5>
-                                                <p class="card-text text-muted small mb-0">Expert</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Python Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="assets/images/python-icon.png" alt="Python" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">Python</h5>
-                                                <p class="card-text text-muted small mb-0">Intermediate</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Node.js Card -->
-                                <div class="col">
-                                    <div class="card h-100 border-0 shadow-sm skill-card">
-                                        <div class="card-body d-flex align-items-center p-4">
-                                            <div class="me-3">
-                                                <img src="assets/images/nodejs-icon.png" alt="Node.js" class="img-fluid" style="width: 40px; height: 40px;">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="card-title mb-1 fw-bold">Node.js</h5>
-                                                <p class="card-text text-muted small mb-0">Advanced</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @for(skill of aboutPageData.skills; track $index){
+                                    <app-skill [mySkill]="skill"></app-skill>
+
+                                }
                             </div>
                         </div>
                     </div>

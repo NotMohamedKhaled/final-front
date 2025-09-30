@@ -1,0 +1,64 @@
+<div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Add / Edit Project</h5>
+      <form [formGroup]="projectForm" (ngSubmit)="addOrUpdate()" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Name</label>
+          <input class="form-control" formControlName="name" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Tech</label>
+          <input class="form-control" formControlName="tech" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Demo Link</label>
+          <input class="form-control" formControlName="demoLink" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Description</label>
+          <textarea rows="2" class="form-control" formControlName="desc"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Image URL</label>
+          <input class="form-control" formControlName="imgUrl" />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit" [disabled]="projectForm.invalid">{{ editingIndex!==null ? 'Update' : 'Add' }}</button>
+          <button *ngIf="editingIndex!==null" class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Projects</h5>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Tech</th>
+              <th>Demo</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of projects; let i = index">
+              <td><img [src]="p.imgUrl" [alt]="p.name" style="width:42px;height:42px;"/></td>
+              <td>{{ p.name }}</td>
+              <td class="text-muted">{{ p.tech }}</td>
+              <td><a [href]="p.demoLink" target="_blank">Open</a></td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="edit(i)">Edit</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="delete(i)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  

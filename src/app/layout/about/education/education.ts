@@ -8,7 +8,7 @@ import { IEducation } from '../../../core/interfaces/aboutPage.interface';
   styleUrl: './education.css'
 })
 export class Education {
-  @Input() educationData!:IEducation[];
+  @Input() educationData!:IEducation;
   
 
 }

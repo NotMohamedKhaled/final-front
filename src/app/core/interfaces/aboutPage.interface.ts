@@ -4,6 +4,7 @@ export interface IBio {
     imgUrl: string
 }
 export interface IEducation {
+    _id:string
     school: String,
     degree: String,
     year: String,
@@ -14,6 +15,8 @@ export interface IEducation {
     name: String,
     level: String, // Beginner, Intermediate, Advanced
     iconUrl: String
+    _id:string
+
 }
 
 export interface IAboutPage {

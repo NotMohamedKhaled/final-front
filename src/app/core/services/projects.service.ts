@@ -6,12 +6,22 @@ import { IProject } from '../interfaces/project.interface';
   providedIn: 'root'
 })
 export class ProjectsService {
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient){}
 
-  }
+  private baseUrl='http://localhost:3000/project/';
 
 getProductsByHttp(){
-  return this.http.get<IProject[]>('http://localhost:3000/project/');
+  return this.http.get<IProject[]>(`${this.baseUrl}`);
 }  
-  
+
+addProject(project:IProject){
+  return this.http.post<IProject>(`${this.baseUrl}`,project);
+}
+updateProject(id:string,project: IProject){
+  return this.http.put<IProject>(`${this.baseUrl}+/${id}`,project);
+}
+deleteProject(id:string){
+  return this.http.delete<IProject>(`${this.baseUrl}+/${id}`);
+}
+
 }

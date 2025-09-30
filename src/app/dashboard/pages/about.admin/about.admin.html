@@ -1,0 +1,145 @@
+
+<div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Bio</h5>
+      <form [formGroup]="bioForm" (ngSubmit)="saveBio()" class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Title</label>
+          <input class="form-control" formControlName="title" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Image URL</label>
+          <input class="form-control" formControlName="imgUrl" />
+        </div>
+        <div class="col-12">
+          <label class="form-label">Paragraph</label>
+          <textarea rows="3" class="form-control" formControlName="paragraph"></textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit" [disabled]="bioForm.invalid">Save Bio</button>
+          
+        </div>
+      </form>
+    </div>
+    </div>
+  
+    <!-- edu add -->
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Education</h5>
+            <form [formGroup]="educationForm" (ngSubmit)="addOrUpdateEducation()" class="row g-3">
+              <div class="col-12">
+                <label class="form-label">School</label>
+                <input class="form-control" formControlName="school" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Degree</label>
+                <input class="form-control" formControlName="degree" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Year</label>
+                <input class="form-control" formControlName="year" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Location</label>
+                <input class="form-control" formControlName="location" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Paragraph</label>
+                <textarea rows="2" class="form-control" formControlName="paragraph"></textarea>
+              </div>
+              <div class="col-12 d-flex gap-2">
+                <button class="btn btn-primary" type="submit" [disabled]="educationForm.invalid">{{ editingEducationIndex!==null ? 'Update' : 'Add' }}</button>
+                <button *ngIf="editingEducationIndex!==null" class="btn btn-secondary" type="button" (click)="cancelEditEducation()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- skill update/add -->
+       <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Skills</h5>
+            <form [formGroup]="skillForm" (ngSubmit)="addOrUpdateSkill()" class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input class="form-control" formControlName="name" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Level</label>
+                <select class="form-select" formControlName="level">
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                  <option value="Expert">Expert</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Icon URL</label>
+                <input class="form-control" formControlName="iconUrl" />
+              </div>
+              <div class="col-12 d-flex gap-2">
+                <button class="btn btn-primary" type="submit" [disabled]="skillForm.invalid">{{ editingSkillIndex!==null ? 'Update' : 'Add' }}</button>
+                <button *ngIf="editingSkillIndex!==null" class="btn btn-secondary" type="button" (click)="cancelEditSkill()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div> 
+    </div>
+  
+    <div class="row g-3 mt-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="text-secondary">Education List</h6>
+            <ul class="list-group">
+
+
+           <!-- @for(edu of aboutData.education; track $index){ -->
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let edu of aboutData.education; let i = index">
+                <span class="me-2">
+                  <strong>{{ edu.school }}</strong> — {{ edu.degree }} ({{ edu.year }})
+                </span>
+                <span class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" (click)="editEducation(i)">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteEducation(i)">Delete</button>
+                </span>
+              </li>
+           <!-- } -->
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+
+
+
+            <h6 class="text-secondary">Skills List</h6>
+            <ul class="list-group">
+            <!-- @for(skill of aboutData.skills; track $index){ -->
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let skill of aboutData.skills; let i = index">
+                    <span class="d-flex align-items-center gap-2">
+                      <img [src]="skill.iconUrl" [alt]="skill.name" style="width:28px;height:28px;" />
+                      <span><strong>{{ skill.name }}</strong> — {{ skill.level }}</span>
+                    </span>
+                    <span class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" (click)="editSkill(i)">Edit</button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteSkill(i)">Delete</button>
+                    </span>
+                  </li>
+            <!-- } -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
