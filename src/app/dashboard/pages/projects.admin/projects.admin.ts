@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -22,6 +22,8 @@ export class ProjectsAdmin implements OnInit {
   projectForm!: FormGroup;
   editingIndex: number | null = null;
   selectedFile: File | null = null;
+  @ViewChild('projectFileInput') projectFileInput!: ElementRef<HTMLInputElement>;
+
 
   constructor(private projectsService: ProjectsService) {}
   ngOnInit(): void {
@@ -49,15 +51,16 @@ export class ProjectsAdmin implements OnInit {
       const id = current._id;
 
       this.projectsService.updateProject(id, projectValues, this.selectedFile || undefined).subscribe((updated) => {
-        this.projects[this.editingIndex!] = updated;
-        this.projectForm.reset();
+        this.projects = this.projects.map((proj, idx) => 
+          idx === this.editingIndex ? updated : proj
+        );
         this.cancel();
       });
     } else {
       this.projectsService.addProject(projectValues, this.selectedFile || undefined).subscribe((created) => {
         this.projects = [...this.projects, created as IProject];
         this.projectForm.reset();
-        this.selectedFile = null;
+        this.resetFileInput();
       });
     }
   }
@@ -69,7 +72,7 @@ export class ProjectsAdmin implements OnInit {
   cancel() {
     this.editingIndex = null;
     this.projectForm.reset();
-    this.selectedFile = null;
+    this.resetFileInput();
   }
   delete(index: number) {
     const current = this.projects[index] as any;
@@ -85,5 +88,11 @@ export class ProjectsAdmin implements OnInit {
     this.selectedFile = input.files[0];
     // input.value='';
 
+  }
+  resetFileInput() {
+    this.selectedFile = null;
+    if (this.projectFileInput) {
+      this.projectFileInput.nativeElement.value = '';
+    }
   }
 }

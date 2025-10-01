@@ -15,7 +15,7 @@ export class AboutService {
   }
 
   // Bio
-  updateBio(bio: IBio , file:File){
+  updateBio(bio: IBio , file: File){
     const formData = new FormData();
     formData.append('title', bio.title);
     formData.append('paragraph', bio.paragraph);

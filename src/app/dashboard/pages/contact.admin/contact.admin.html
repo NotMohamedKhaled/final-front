@@ -8,7 +8,7 @@
             </div>
             <!-- <div *ngIf="loading" class="text-center py-5">Loading...</div> -->
             <!-- <div *ngIf="error" class="text-danger text-center py-2">{{ error }}</div> -->
-            <div *ngIf="contacts.length === 0" class="text-center py-3">No messages found.</div>
+            <div *ngIf="contacts?.length === 0" class="text-center py-3">No messages found.</div>
             <div class="table-responsive" *ngIf="contacts.length > 0">
                 <table class="table table-striped align-middle">
                     <thead>

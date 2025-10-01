@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-4">
           <label class="form-label">Service Image</label>
-          <input class="form-control" type="file" (change)="onServiceImageSelected($event)" accept="image/*"/>
+          <input class="form-control" #serviceFileInput type="file" (change)="onServiceImageSelected($event)" accept="image/*"/>
         </div>
         <div class="col-md-4">
           <label class="form-label">Description</label>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 import { AboutService } from '../../../core/services/about.service';
@@ -14,7 +14,8 @@ import { IAboutPage, IBio, IEducation, ISkill } from '../../../core/interfaces/a
 })
 export class AboutAdmin implements OnInit {
   constructor(private aboutService: AboutService, private uploadService: UploadService) {}
-
+  @ViewChild('bioFileInput') bioFileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('skillFileInput') skillFileInput!: ElementRef<HTMLInputElement>;
   aboutData!: IAboutPage;
   bioForm!: FormGroup;
   educationForm!: FormGroup;
@@ -43,9 +44,7 @@ export class AboutAdmin implements OnInit {
       // iconUrl: new FormControl('', [Validators.required]),
     });
 
-    this.aboutService.getAboutData().subscribe((data) => {
-      this.aboutData = data;
-    });
+    this.reloadAboutData();
   }
 
   // loading = true;
@@ -54,41 +53,6 @@ export class AboutAdmin implements OnInit {
   editingEducationIndex: number | null = null;
   editingSkillIndex: number | null = null;
 
-  // constructor(private fb: FormBuilder, private aboutService: AboutService){
-  //   this.bioForm = this.fb.group({
-  //     title: ['', [Validators.required, Validators.maxLength(120)]],
-  //     paragraph: ['', [Validators.required]],
-  //     imgUrl: ['']
-  //   });
-
-  //   this.educationForm = this.fb.group({
-  //     school: ['', Validators.required],
-  //     degree: ['', Validators.required],
-  //     year: ['', Validators.required],
-  //     location: ['', Validators.required],
-  //     paragraph: ['']
-  //   });
-
-  //   this.skillForm = this.fb.group({
-  //     name: ['', Validators.required],
-  //     level: ['', Validators.required],
-  //     iconUrl: ['', Validators.required]
-  //   });
-
-  //   this.load();
-  // }
-
-  // load(){
-  //   this.loading = true;
-  //   this.aboutService.getAboutData().subscribe({
-  //     next: (data) => {
-  //       this.aboutData = data;
-  //       if (data?.bio) this.bioForm.patchValue(data.bio as IBio);
-  //       this.loading = false;
-  //     },
-  //     error: (err) => { this.error = 'Failed to load about dataa'; this.loading = false; console.error(err); }
-  //   });
-  // }
 
   // // Bio
   saveBio() {
@@ -98,6 +62,8 @@ export class AboutAdmin implements OnInit {
     const bio = this.bioForm.value as IBio;
     this.aboutService.updateBio(bio,this.file||undefined).subscribe((saved) => {
       if (this.aboutData) this.aboutData.bio = saved as IBio;
+      this.bioFileInput.nativeElement.value = '';
+
     });
   }
 
@@ -126,6 +92,7 @@ export class AboutAdmin implements OnInit {
       this.aboutService.updateEducation(id, eduValues).subscribe((updated) => {
         this.aboutData.education[this.editingEducationIndex!] = updated as IEducation;
         this.cancelEditEducation();
+        this.reloadAboutData();
       });
 
       //adding
@@ -134,6 +101,7 @@ export class AboutAdmin implements OnInit {
         if (!this.aboutData) return;
         this.aboutData.education = [...eduArray, created];
         this.educationForm.reset();
+        this.reloadAboutData();
       });
     }
   }
@@ -166,6 +134,7 @@ export class AboutAdmin implements OnInit {
     const id = current._id;
     this.aboutService.deleteEducation(id).subscribe((data) => {
       this.aboutData!.education = this.aboutData!.education.filter((item, i) => i !== index);
+      this.reloadAboutData();
     });
   }
 
@@ -184,6 +153,7 @@ export class AboutAdmin implements OnInit {
       this.aboutService.updateSkill(id, skillValues, this.selectedFile|| undefined).subscribe((updated) => {
         this.aboutData.skills[this.editingSkillIndex!] = updated as ISkill;
         this.cancelEditSkill();
+        this.reloadAboutData();
       });
     } else {
       console.log(this.file)
@@ -191,8 +161,18 @@ export class AboutAdmin implements OnInit {
         if (!this.aboutData) return;
         this.aboutData.skills = [...skillArr, created as ISkill];
         this.skillForm.reset();
+        this.resetSkillFileInput();
+        this.reloadAboutData();
       });
     }
+  }
+
+  
+
+  private reloadAboutData(){
+    this.aboutService.getAboutData().subscribe((data) => {
+      this.aboutData = data;
+    });
   }
 
   editSkill(index: number) {
@@ -210,6 +190,7 @@ export class AboutAdmin implements OnInit {
   cancelEditSkill() {
     this.editingSkillIndex = null;
     this.skillForm.reset();
+    this.resetSkillFileInput();
   }
   
   deleteSkill(index: number) {
@@ -228,8 +209,16 @@ export class AboutAdmin implements OnInit {
     if (!input.files || input.files.length === 0){ this.selectedFile = null; return; }
     this.selectedFile = input.files[0];
     }
+
+    resetSkillFileInput() {
+      this.selectedFile = null;
+      if (this.skillFileInput) {
+        this.skillFileInput.nativeElement.value = '';
+      }
+    }
   }
 
+  
 //   editSkill(index: number) {
 //     if (!this.aboutData) return;
 //     this.editingSkillIndex = index;

@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6">
           <label class="form-label">Project Image</label>
-          <input class="form-control" type="file" (change)="onImageSelected($event)" accept="image/*"/>
+          <input class="form-control" #projectFileInput  type="file" (change)="onImageSelected($event)" accept="image/*"/>
         </div>
         <div class="col-12">
           <button class="btn btn-primary" type="submit" [disabled]="projectForm.invalid">{{ editingIndex!==null ? 'Update' : 'Add' }}</button>

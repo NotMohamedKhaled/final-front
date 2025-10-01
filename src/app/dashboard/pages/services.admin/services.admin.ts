@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -21,6 +21,9 @@ export class ServicesAdmin implements OnInit {
   services!: IService[];
   serviceForm!: FormGroup;
   selectedServiceFile: File | null = null;
+  
+  @ViewChild('serviceFileInput') serviceFileInput!: ElementRef<HTMLInputElement>;
+
 
   constructor(private serviceService: ServiceService) {}
 
@@ -50,15 +53,16 @@ export class ServicesAdmin implements OnInit {
       // For services, assuming backend accepts JSON with imgUrl string. If you want multer here too,
       // you need an upload endpoint. For now we keep JSON update.
       this.serviceService.updateService(id, serviceValues,this.selectedServiceFile||undefined).subscribe((updated) => {
-        this.services[this.editingIndex!] = updated as IService;
-        this.serviceForm.reset();
+        this.services = this.services.map((service, idx) => 
+          idx === this.editingIndex ? updated as IService : service
+        );
         this.cancel();
       });
     } else {
       this.serviceService.addService(serviceValues ,this.selectedServiceFile||undefined).subscribe( (created) => {
           this.services = [...this.services, created as IService];
           this.serviceForm.reset();
-          this.selectedServiceFile = null;
+          this.resetFileInput();
         },
    );
     }
@@ -71,7 +75,7 @@ export class ServicesAdmin implements OnInit {
   cancel() {
     this.editingIndex = null;
     this.serviceForm.reset();
-    this.selectedServiceFile = null;
+    this.resetFileInput();
   }
   delete(index: number) {
     const current= this.services[index] as any;
@@ -87,5 +91,11 @@ export class ServicesAdmin implements OnInit {
     this.selectedServiceFile = input.files[0];
       //  input.value = '';
 
+  }
+  resetFileInput() {
+    this.selectedServiceFile = null;
+    if (this.serviceFileInput) {
+      this.serviceFileInput.nativeElement.value = '';
+    }
   }
 }
