@@ -5,16 +5,16 @@ export interface IBio {
 }
 export interface IEducation {
     _id:string
-    school: String,
-    degree: String,
-    year: String,
-    location: String,
-    paragraph: String
+    school: string,
+    degree: string,
+    year: string,
+    location: string,
+    paragraph: string
 
 }export interface ISkill {
-    name: String,
-    level: String, // Beginner, Intermediate, Advanced
-    iconUrl: String
+    name: string,
+    level: string, // Beginner, Intermediate, Advanced
+    iconUrl: string
     _id:string
 
 }

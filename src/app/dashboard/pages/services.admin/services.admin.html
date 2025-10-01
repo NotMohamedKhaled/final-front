@@ -8,8 +8,8 @@
           <input class="form-control" formControlName="name" />
         </div>
         <div class="col-md-4">
-          <label class="form-label">Image URL</label>
-          <input class="form-control" formControlName="imgUrl" />
+          <label class="form-label">Service Image</label>
+          <input class="form-control" type="file" (change)="onServiceImageSelected($event)" accept="image/*"/>
         </div>
         <div class="col-md-4">
           <label class="form-label">Description</label>

@@ -20,6 +20,7 @@ import { IService } from '../../../core/interfaces/service.interface';
 export class ServicesAdmin implements OnInit {
   services!: IService[];
   serviceForm!: FormGroup;
+  selectedServiceFile: File | null = null;
 
   constructor(private serviceService: ServiceService) {}
 
@@ -27,11 +28,13 @@ export class ServicesAdmin implements OnInit {
     this.serviceForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       desc: new FormControl('', [Validators.required]),
-      imgUrl: new FormControl('', [Validators.required]),
+      // imgUrl: new FormControl('', [Validators.required]),
     });
 
     this.serviceService.getServicesByHttp().subscribe((data) => {
       this.services = data;
+      console.log('Loaded projects:', data);
+
     });
   }
 
@@ -44,15 +47,18 @@ export class ServicesAdmin implements OnInit {
     if (this.editingIndex !== null) {
       const current = this.services[this.editingIndex] as any;
       const id = current._id;
-
-      this.serviceService.updateService(id, serviceValues).subscribe((updated) => {
+      // For services, assuming backend accepts JSON with imgUrl string. If you want multer here too,
+      // you need an upload endpoint. For now we keep JSON update.
+      this.serviceService.updateService(id, serviceValues,this.selectedServiceFile||undefined).subscribe((updated) => {
         this.services[this.editingIndex!] = updated as IService;
+        this.serviceForm.reset();
         this.cancel();
       });
     } else {
-      this.serviceService.addService(serviceValues).subscribe( (created) => {
+      this.serviceService.addService(serviceValues ,this.selectedServiceFile||undefined).subscribe( (created) => {
           this.services = [...this.services, created as IService];
           this.serviceForm.reset();
+          this.selectedServiceFile = null;
         },
    );
     }
@@ -65,6 +71,7 @@ export class ServicesAdmin implements OnInit {
   cancel() {
     this.editingIndex = null;
     this.serviceForm.reset();
+    this.selectedServiceFile = null;
   }
   delete(index: number) {
     const current= this.services[index] as any;
@@ -72,5 +79,13 @@ export class ServicesAdmin implements OnInit {
     this.serviceService.deleteService(id).subscribe( (data) => {
       this.services = this.services.filter((service, i) => i !== index)
     }); 
+  }
+
+  onServiceImageSelected(event: Event){
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0){ this.selectedServiceFile = null; return; }
+    this.selectedServiceFile = input.files[0];
+      //  input.value = '';
+
   }
 }

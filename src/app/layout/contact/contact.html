@@ -10,32 +10,33 @@
                 <div class="col-lg-8 col-xl-6">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="name" type="text" placeholder="Enter your name..." formControlName="name" [class.is-invalid]="submitted && f['name']?.invalid">
+                            <input class="form-control" id="name" type="text" placeholder="Enter your name..." formControlName="name" [class.is-invalid]="(submitted || f['name']?.touched) && f['name']?.invalid">
                             <label for="name">Full name</label>
-                            <div class="invalid-feedback" *ngIf="submitted && f['name']?.errors">
+                            <div class="invalid-feedback" *ngIf="(submitted || f['name']?.touched) && f['name']?.errors">
                                 <span *ngIf="f['name']?.errors?.['required']">A name is required.</span>
                                 <span *ngIf="f['name']?.errors?.['minlength']">Name must be at least 2 characters.</span>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="email" type="email" placeholder="name@example.com" formControlName="email" [class.is-invalid]="submitted && f['email']?.invalid">
+                            <input class="form-control" id="email" type="email" placeholder="name@example.com" formControlName="email" [class.is-invalid]="(submitted || f['email']?.touched) && f['email']?.invalid">
                             <label for="email">Email address</label>
-                            <div class="invalid-feedback" *ngIf="submitted && f['email']?.errors">
+                            <div class="invalid-feedback" *ngIf="(submitted || f['email']?.touched) && f['email']?.errors">
                                 <span *ngIf="f['email']?.errors?.['required']">An email is required.</span>
                                 <span *ngIf="f['email']?.errors?.['email']">Email is not valid.</span>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" formControlName="phone" [class.is-invalid]="submitted && f['phone']?.invalid">
+                            <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" formControlName="phone" [class.is-invalid]="(submitted || f['phone']?.touched) && f['phone']?.invalid">
                             <label for="phone">Phone number</label>
-                            <div class="invalid-feedback" *ngIf="submitted && f['phone']?.errors">
+                            <div class="invalid-feedback" *ngIf="(submitted || f['phone']?.touched) && f['phone']?.errors">
                                 <span *ngIf="f['phone']?.errors?.['required']">A phone number is required.</span>
+                                <span *ngIf="f['phone']?.errors?.['digitsOnly']">Phone must contain only digits (0-9).</span>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" id="enquire" placeholder="Enter your message here..." style="height: 10rem" formControlName="enquire" [class.is-invalid]="submitted && f['enquire']?.invalid"></textarea>
+                            <textarea class="form-control" id="enquire" placeholder="Enter your message here..." style="height: 10rem" formControlName="enquire" [class.is-invalid]="(submitted || f['enquire']?.touched) && f['enquire']?.invalid"></textarea>
                             <label for="enquire">Your Enquire</label>
-                            <div class="invalid-feedback" *ngIf="submitted && f['enquire']?.errors">
+                            <div class="invalid-feedback" *ngIf="(submitted || f['enquire']?.touched) && f['enquire']?.errors">
                                 <span *ngIf="f['enquire']?.errors?.['required']">A message is required.</span>
                                 <span *ngIf="f['enquire']?.errors?.['minlength']">Message must be at least 10 characters.</span>
                             </div>

@@ -14,12 +14,25 @@ export class ServiceService {
     return this.http.get<IService[]>(`${this.baseUrl}`);
   }
 
-  addService(service: IService){
-    return this.http.post<IService>(`${this.baseUrl}`, service);
+  addService(service: IService,file?:File){
+    const formData = new FormData();
+    formData.append('name', service.name);
+    formData.append('desc', service.desc);
+    if(file){
+      formData.append('serviceImage',file);
+    }
+
+    return this.http.post<IService>(`${this.baseUrl}`, formData);
   }
 
-  updateService(id: string, service: IService){
-    return this.http.put<IService>(`${this.baseUrl}/${id}`, service);
+  updateService(id: string, service: IService , file?:File){
+    const formData = new FormData();
+    formData.append('name', service.name);
+    formData.append('desc', service.desc);
+    if(file){
+      formData.append('serviceImage',file);
+    }
+    return this.http.put<IService>(`${this.baseUrl}/${id}`, formData);
   }
 
   deleteService(id: string){

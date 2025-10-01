@@ -19,8 +19,8 @@
           <textarea rows="2" class="form-control" formControlName="desc"></textarea>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Image URL</label>
-          <input class="form-control" formControlName="imgUrl" />
+          <label class="form-label">Project Image</label>
+          <input class="form-control" type="file" (change)="onImageSelected($event)" accept="image/*"/>
         </div>
         <div class="col-12">
           <button class="btn btn-primary" type="submit" [disabled]="projectForm.invalid">{{ editingIndex!==null ? 'Update' : 'Add' }}</button>

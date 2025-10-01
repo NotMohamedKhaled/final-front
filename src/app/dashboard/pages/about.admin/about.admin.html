@@ -8,8 +8,8 @@
           <input class="form-control" formControlName="title" />
         </div>
         <div class="col-md-6">
-          <label class="form-label">Image URL</label>
-          <input class="form-control" formControlName="imgUrl" />
+          <label class="form-label">Bio Image</label>
+          <input class="form-control" type="file" (change)="onBioImageSelected($event)" accept="image/*"/>
         </div>
         <div class="col-12">
           <label class="form-label">Paragraph</label>
@@ -78,8 +78,8 @@
                 </select>
               </div>
               <div class="col-12">
-                <label class="form-label">Icon URL</label>
-                <input class="form-control" formControlName="iconUrl" />
+                <label class="form-label">Icon</label>
+                <input class="form-control" type="file" (change)="onSkillIconSelected($event)" accept="image/*"/>
               </div>
               <div class="col-12 d-flex gap-2">
                 <button class="btn btn-primary" type="submit" [disabled]="skillForm.invalid">{{ editingSkillIndex!==null ? 'Update' : 'Add' }}</button>
@@ -100,7 +100,7 @@
 
 
            <!-- @for(edu of aboutData.education; track $index){ -->
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let edu of aboutData.education; let i = index">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let edu of aboutData?.education; let i = index">
                 <span class="me-2">
                   <strong>{{ edu.school }}</strong> — {{ edu.degree }} ({{ edu.year }})
                 </span>
@@ -125,9 +125,9 @@
             <h6 class="text-secondary">Skills List</h6>
             <ul class="list-group">
             <!-- @for(skill of aboutData.skills; track $index){ -->
-                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let skill of aboutData.skills; let i = index">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let skill of aboutData?.skills; let i = index">
                     <span class="d-flex align-items-center gap-2">
-                      <img [src]="skill.iconUrl" [alt]="skill.name" style="width:28px;height:28px;" />
+                      <!-- <img [src]="skill.iconUrl" [alt]="skill.name" style="width:28px;height:28px;" /> -->
                       <span><strong>{{ skill.name }}</strong> — {{ skill.level }}</span>
                     </span>
                     <span class="btn-group">

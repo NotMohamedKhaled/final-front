@@ -19,7 +19,7 @@ aboutPageData!:IAboutPage;
 ngOnInit(): void {
   this.aboutService.getAboutData().subscribe(data=>{
     this.aboutPageData=data;
-    // console.log(this.aboutPageData);
+    console.log(this.aboutPageData);
     
   })
 }

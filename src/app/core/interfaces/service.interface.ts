@@ -1,5 +1,5 @@
 export interface IService{
-    name:String;
-    desc:String;
-    imgUrl:String;
+    name:string;
+    desc:string;
+    imgUrl:string;
 }

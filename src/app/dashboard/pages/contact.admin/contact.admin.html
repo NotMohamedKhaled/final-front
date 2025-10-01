@@ -1,1 +1,40 @@
-<p>contact.admin works!</p>
+<section class="py-5">
+    <div class="container px-5">
+        <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+            <div class="text-center mb-4">
+                <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"><i class="bi bi-people"></i></div>
+                <h1 class="fw-bolder">Messages from contact</h1>
+                <p class="lead fw-normal text-muted mb-0">View and delete message submissions</p>
+            </div>
+            <!-- <div *ngIf="loading" class="text-center py-5">Loading...</div> -->
+            <!-- <div *ngIf="error" class="text-danger text-center py-2">{{ error }}</div> -->
+            <div *ngIf="contacts.length === 0" class="text-center py-3">No messages found.</div>
+            <div class="table-responsive" *ngIf="contacts.length > 0">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of contacts; let i = index">
+                            <td>{{ c.name }}</td>
+                            <td>{{ c.email }}</td>
+                            <td>{{ c.phone }}</td>
+                            <td>{{ c.enquire }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger" (click)="delete(i)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

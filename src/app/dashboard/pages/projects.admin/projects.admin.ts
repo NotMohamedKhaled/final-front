@@ -18,9 +18,10 @@ import { IProject } from '../../../core/interfaces/project.interface';
   styleUrl: './projects.admin.css',
 })
 export class ProjectsAdmin implements OnInit {
-  projects!: IProject[];
+  projects: IProject[]=[];
   projectForm!: FormGroup;
   editingIndex: number | null = null;
+  selectedFile: File | null = null;
 
   constructor(private projectsService: ProjectsService) {}
   ngOnInit(): void {
@@ -29,11 +30,13 @@ export class ProjectsAdmin implements OnInit {
       desc: new FormControl('', [Validators.required]),
       tech: new FormControl('', [Validators.required]),
       demoLink: new FormControl('', [Validators.required]),
-      imgUrl: new FormControl('', [Validators.required]),
+      // imgUrl: new FormControl('', [Validators.required]),
     });
 
     this.projectsService.getProductsByHttp().subscribe((data) => {
       this.projects = data;
+      console.log('Loaded projects:', data);
+
     });
   }
 
@@ -45,14 +48,16 @@ export class ProjectsAdmin implements OnInit {
       const current = this.projects[this.editingIndex] as any;
       const id = current._id;
 
-      this.projectsService.updateProject(id, projectValues).subscribe((updated) => {
+      this.projectsService.updateProject(id, projectValues, this.selectedFile || undefined).subscribe((updated) => {
         this.projects[this.editingIndex!] = updated;
+        this.projectForm.reset();
         this.cancel();
       });
     } else {
-      this.projectsService.addProject(projectValues).subscribe((created) => {
+      this.projectsService.addProject(projectValues, this.selectedFile || undefined).subscribe((created) => {
         this.projects = [...this.projects, created as IProject];
         this.projectForm.reset();
+        this.selectedFile = null;
       });
     }
   }
@@ -64,6 +69,7 @@ export class ProjectsAdmin implements OnInit {
   cancel() {
     this.editingIndex = null;
     this.projectForm.reset();
+    this.selectedFile = null;
   }
   delete(index: number) {
     const current = this.projects[index] as any;
@@ -71,5 +77,13 @@ export class ProjectsAdmin implements OnInit {
     this.projectsService.deleteProject(id).subscribe(() =>{
       this.projects = this.projects.filter((proj, i) => i !== index)
     });
+  }
+
+  onImageSelected(event: Event){
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0){ this.selectedFile = null; return; }
+    this.selectedFile = input.files[0];
+    // input.value='';
+
   }
 }

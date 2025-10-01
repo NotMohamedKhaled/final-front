@@ -9,7 +9,7 @@ export class ConatctService {
   
   constructor(private http:HttpClient){}
 
-  private baseUrl='http://localhost3000/contact'
+  private baseUrl='http://localhost:3000/contact'
 
   getContact(){
     return this.http.get<IContact[]>(`${this.baseUrl}`);

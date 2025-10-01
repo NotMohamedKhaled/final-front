@@ -10,6 +10,7 @@ import { ServicesAdmin } from './dashboard/pages/services.admin/services.admin';
 import { ProjectsAdmin } from './dashboard/pages/projects.admin/projects.admin';
 import { NotFound } from './not-found/not-found';
 import { Projects } from './layout/projects/projects';
+import { ContactAdmin } from './dashboard/pages/contact.admin/contact.admin';
 
 export const routes: Routes = [
 
@@ -26,6 +27,7 @@ export const routes: Routes = [
         { path: 'about', component: AboutAdmin },
         { path: 'services', component: ServicesAdmin },
         { path: 'projects', component: ProjectsAdmin },
+        { path: 'contact', component: ContactAdmin },
     ]},
     {path:'**',component:NotFound}
 ];
