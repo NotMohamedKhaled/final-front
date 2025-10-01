@@ -1,25 +1,3 @@
-# Front
-Backend Endpoints Needed
-
-About Service endpoints:
-PUT /about/bio - Update bio
-POST /about/education - Add education
-PUT /about/education/:id - Update education
-DELETE /about/education/:id - Delete education
-POST /about/skills - Add skill
-PUT /about/skills/:id - Update skill
-DELETE /about/skills/:id - Delete skill
-
-Services endpoints:
-POST /service - Add service
-PUT /service/:id - Update service
-DELETE /service/:id - Delete service
-
-
-Projects endpoints:
-POST /project - Add project
-PUT /project/:id - Update project
-DELETE /project/:id - Delete project
 
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
